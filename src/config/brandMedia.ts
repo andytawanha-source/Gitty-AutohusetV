@@ -34,6 +34,15 @@ export interface BrandMedia {
   financeConsultation: EditorialImage;
   showroom: EditorialImage;
   workshop: EditorialImage;
+  /** Billeder til de enkelte ydelseskort på værkstedssiden. */
+  workshopServices: {
+    serviceeftersyn: EditorialImage;
+    olieskift: EditorialImage;
+    daekskift: EditorialImage;
+    bremser: EditorialImage;
+    klargoeringTilSyn: EditorialImage;
+    reparation: EditorialImage;
+  };
 }
 
 const autohusetVestMedia: BrandMedia = {
@@ -63,6 +72,44 @@ const autohusetVestMedia: BrandMedia = {
     width: 1400,
     height: 1400,
     alt: "Klargøring af en bil i et lyst værkstedsmiljø",
+  },
+  workshopServices: {
+    serviceeftersyn: {
+      src: "/media/autohuset-vest/workshop-services/serviceeftersyn.webp",
+      width: 1000,
+      height: 750,
+      alt: "Mekaniker bruger momentnøgle i en åben motorhjelm",
+    },
+    olieskift: {
+      src: "/media/autohuset-vest/workshop-services/olieskift.webp",
+      width: 1000,
+      height: 750,
+      alt: "Olie hældes i en bilmotor under et olieskift",
+    },
+    daekskift: {
+      src: "/media/autohuset-vest/workshop-services/daekskift.webp",
+      width: 1000,
+      height: 750,
+      alt: "Mekaniker monterer et dæk på en afbalanceringsmaskine",
+    },
+    bremser: {
+      src: "/media/autohuset-vest/workshop-services/bremser.webp",
+      width: 1000,
+      height: 750,
+      alt: "Mekaniker efterser en bremseskive og -kaliber",
+    },
+    klargoeringTilSyn: {
+      src: "/media/autohuset-vest/workshop-services/klargoering-syn.webp",
+      width: 1000,
+      height: 750,
+      alt: "Mekaniker efterser undervognen på en bil på en lift",
+    },
+    reparation: {
+      src: "/media/autohuset-vest/workshop-services/reparation.webp",
+      width: 1000,
+      height: 750,
+      alt: "Mekaniker bruger en diagnosetablet ved en åben motorhjelm",
+    },
   },
 };
 
