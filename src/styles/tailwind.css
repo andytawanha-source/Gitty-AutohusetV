@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -30,6 +30,15 @@
 
   #root {
     overflow-x: clip;
+  }
+
+  /* CSS Grid giver som udgangspunkt hvert grid-element en automatisk minimumsbredde
+     svarende til dets indhold. Hvis et grid-element indeholder en intern vandret
+     scroll-liste (fx trin-indikatoren i booking-formularen), presser det derfor hele
+     grid-elementet og alt omkring det bredere end skaermen paa mobil. Dette nulstiller
+     minimumsbredden, saa indhold i stedet ombrydes eller scroller internt som tiltaenkt. */
+  .grid > * {
+    min-width: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
