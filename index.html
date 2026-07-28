@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2038B0" />
+
+    <!-- Favicon/app-ikoner -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!--
+      Statiske fallback-tags for crawlere/sociale medier der ikke kører JavaScript
+      (react-helmet-async overskriver disse pr. side, når klienten hydrerer).
+    -->
+    <meta name="description" content="Se vores udvalg af kvalitetsbiler, eller få et uforpligtende tilbud på din bil med det samme." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Autohuset" />
+    <meta property="og:title" content="Autohuset – Kvalitetsbiler og fair bilvurdering" />
+    <meta property="og:description" content="Se vores udvalg af kvalitetsbiler, eller få et uforpligtende tilbud på din bil med det samme." />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Titel og meta sættes dynamisk pr. brand via react-helmet-async -->
+    <title>Autohuset</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

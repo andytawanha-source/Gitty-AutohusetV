@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Brandvariabler sættes af BrandProvider (inline på <html>). Defaults = Autohuset Vest (kongeblå/hvid). */
+:root {
+  --brand-primary: 32 56 176;
+  --brand-secondary: 22 39 125;
+  --brand-accent: 143 176 255;
+  --brand-surface: 255 255 255;
+  --brand-surface-warm: 238 242 251;
+  --brand-ink: 14 21 51;
+  --font-display: "Outfit";
+  --font-body: "Inter";
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-brand-surface font-body text-brand-ink antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-accent ring-offset-2 ring-offset-brand-surface;
+  }
+}
+
+@layer components {
+  .skeleton {
+    @apply relative overflow-hidden rounded-md bg-brand-ink/10;
+  }
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent;
+    animation: shimmer 1.4s infinite;
+  }
+}
+
+/* Diskret succes-konfetti (SellCarThanksPage) */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-24px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(50vh) rotate(540deg);
+    opacity: 0;
+  }
+}
+.confetti-piece {
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+  animation: confetti-fall 2.2s ease-in forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .confetti-piece {
+    display: none;
+  }
+}

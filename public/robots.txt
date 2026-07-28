@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /favoritter
+Disallow: /saelg-din-bil/tak/
+
+# Sitemap-URL opdateres til det rigtige domæne ved deployment (se DEPLOYMENT.md)
+Sitemap: /sitemap.xml
