@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -17,6 +17,19 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Forhindrer at siden kan skubbes/trækkes sidelæns, hvis et enkelt element
+       skulle overflowe på mobil (fx en for bred tabel eller badge). */
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  #root {
+    overflow-x: clip;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -38,6 +51,15 @@
 
   h1, h2, h3, h4 {
     @apply font-display;
+  }
+
+  img, video, iframe, svg, canvas {
+    max-width: 100%;
+  }
+
+  /* Sikrer at lange, ubrudte ord/URL'er ikke tvinger indholdet bredere end skærmen. */
+  p, h1, h2, h3, h4, span, a {
+    overflow-wrap: break-word;
   }
 
   :focus-visible {
