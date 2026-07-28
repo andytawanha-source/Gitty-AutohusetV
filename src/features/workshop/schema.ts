@@ -12,8 +12,11 @@ export const SERVICE_TYPES = [
 ] as const;
 export type ServiceType = (typeof SERVICE_TYPES)[number];
 
-/** Åbningstider for booking: 08-16 i timeslots (matcher backend/`get_booked_slots`). */
-export const TIME_SLOTS = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00"] as const;
+/**
+ * Bookbare tider: timeslots inden for åbningstiden mandag–fredag 09:00–17:30.
+ * Sidste slot starter 16:00, så der er en time til arbejdet inden lukketid.
+ */
+export const TIME_SLOTS = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"] as const;
 export type TimeSlot = (typeof TIME_SLOTS)[number];
 
 export const MAX_BOOKING_DAYS_AHEAD = 14;

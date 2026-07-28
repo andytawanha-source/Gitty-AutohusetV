@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 export function Logo({ className }: { className?: string }) {
   const brand = useBrand();
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
+    <span className={cn("inline-flex shrink-0 items-center gap-2", className)}>
       <svg viewBox="0 0 34 28" width="30" height="24" aria-hidden className="shrink-0">
         <g fill="currentColor">
           <polygon points="0,28 8,28 20,0 12,0" />
@@ -17,7 +17,7 @@ export function Logo({ className }: { className?: string }) {
           <polygon points="22,28 28,28 34,12 27,12" />
         </g>
       </svg>
-      <span className="font-display text-xl font-black uppercase italic leading-none tracking-wide">
+      <span className="whitespace-nowrap font-display text-xl font-black uppercase italic leading-none tracking-wide">
         {brand.name}
       </span>
     </span>

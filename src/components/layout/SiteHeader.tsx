@@ -43,12 +43,12 @@ export function SiteHeader() {
         scrolled && "shadow-lg"
       )}
     >
-      <div className="container flex h-16 items-center justify-between gap-4">
-        <Link to="/" aria-label={`${brand.name} – forside`}>
+      <div className="container flex h-16 flex-nowrap items-center justify-between gap-3">
+        <Link to="/" className="shrink-0" aria-label={`${brand.name} – forside`}>
           <Logo />
         </Link>
 
-        <nav aria-label="Hovednavigation" className="hidden items-center gap-1 lg:flex">
+        <nav aria-label="Hovednavigation" className="hidden min-w-0 items-center gap-0.5 xl:flex">
           {NAV_ITEMS.map((item) => (
             <NavLink
               key={item.to}
@@ -56,7 +56,7 @@ export function SiteHeader() {
               end={item.end}
               className={({ isActive }) =>
                 cn(
-                  "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-white/10",
+                  "whitespace-nowrap rounded-md px-2.5 py-2 text-[0.8125rem] font-medium leading-none transition-colors hover:bg-white/10",
                   isActive && "bg-white/15 text-brand-accent"
                 )
               }
@@ -66,24 +66,24 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <a
             href={`tel:${brand.contact.phone}`}
-            className="hidden items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-white/10 md:flex"
+            className="hidden items-center gap-2 whitespace-nowrap rounded-md px-2.5 py-2 text-sm font-medium hover:bg-white/10 md:flex"
             data-track="click_phone"
           >
-            <Phone className="h-4 w-4" aria-hidden />
+            <Phone className="h-4 w-4 shrink-0" aria-hidden />
             {brand.contact.phone}
           </a>
           <Link
             to="/saelg-din-bil"
-            className="hidden rounded-md bg-white ring-1 ring-brand-primary/20 shadow-sm px-4 py-2 text-sm font-semibold text-brand-primary transition-transform hover:scale-[1.03] md:block"
+            className="hidden whitespace-nowrap rounded-md bg-white ring-1 ring-brand-primary/20 shadow-sm px-4 py-2 text-sm font-semibold text-brand-primary transition-transform hover:scale-[1.03] md:block"
           >
             Sælg din bil
           </Link>
           <button
             type="button"
-            className="rounded-md p-2 hover:bg-white/10 lg:hidden"
+            className="rounded-md p-2 hover:bg-white/10 xl:hidden"
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
             aria-label={mobileOpen ? "Luk menu" : "Åbn menu"}
@@ -95,7 +95,7 @@ export function SiteHeader() {
       </div>
 
       {mobileOpen && (
-        <nav id="mobile-menu" aria-label="Mobilnavigation" className="border-t border-white/10 bg-brand-gradient lg:hidden">
+        <nav id="mobile-menu" aria-label="Mobilnavigation" className="border-t border-white/10 bg-brand-gradient xl:hidden">
           <ul className="container flex flex-col py-2">
             {NAV_ITEMS.map((item) => (
               <li key={item.to}>

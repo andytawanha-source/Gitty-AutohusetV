@@ -106,7 +106,7 @@ export default function WorkshopPage() {
         <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-brand-ink/5 lg:p-8">
           <h2 className="font-display text-lg font-bold text-brand-primary">Praktisk information</h2>
           <ul className="mt-4 space-y-3 text-sm text-brand-ink/70">
-            <li>Vi booker tider mandag–fredag i tidsrummet 08:00–16:00.</li>
+            <li>Vi booker tider mandag–fredag i tidsrummet 09:00–17:30.</li>
             <li>Du kan booke op til 14 dage frem – vi holder lukket i weekenden.</li>
             <li>Du får en bekræftelse på e-mail, når vi har godkendt tiden.</li>
             <li>Aflever gerne nøglerne dagen før, hvis du ikke selv kan møde op.</li>

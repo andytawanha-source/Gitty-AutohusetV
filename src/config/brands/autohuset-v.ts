@@ -21,18 +21,19 @@ export const autohusetV: BrandConfig = {
     display: "'Sora'",
     body: "'Inter'",
   },
+  // Samme juridiske enhed og kontaktoplysninger som Autohuset Vest (samme selskab, to brands).
   contact: {
-    legalName: "[AUTOHUSET V JURIDISK NAVN]",
-    cvr: "[AUTOHUSET V CVR]",
-    address: "[AUTOHUSET V ADRESSE]",
-    phone: "[AUTOHUSET V TELEFON]",
-    email: "[AUTOHUSET V E-MAIL]",
-    leadEmail: "[AUTOHUSET V LEAD-E-MAIL]",
+    legalName: "Autohuset Vest ApS",
+    cvr: "44769247",
+    address: "Islevsdalsvej 200, 2610 Rødovre",
+    phone: "+45 31 54 20 45",
+    email: "info@autohusetvest.dk",
+    leadEmail: "info@autohusetvest.dk",
   },
   openingHours: [
-    { label: "Mandag–fredag", hours: "10:00–17:30" },
-    { label: "Lørdag", hours: "10:00–14:00" },
-    { label: "Søndag", hours: "Lukket" },
+    { label: "Mandag–fredag", hours: "09:00–17:30" },
+    { label: "Lørdag", hours: "Efter aftale" },
+    { label: "Søndag", hours: "Efter aftale" },
   ],
   social: {
     facebook: "[AUTOHUSET V FACEBOOK]",
