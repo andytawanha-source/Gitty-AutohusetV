@@ -164,10 +164,12 @@ export default function HomePage() {
           <div>
             <h2 id="about-heading" className="font-display text-2xl font-bold lg:text-3xl">Om {brand.name}</h2>
             <p className="mt-3 leading-relaxed text-white/75">
-              Hos {brand.name} handler bilhandel om én ting: tryghed. Alle vores biler er gennemgået og
-              klargjort, priserne er gennemsigtige, og du får altid et ærligt svar – også når det ikke er det,
-              du havde håbet på. Mere end 100 kunder har allerede handlet trygt hos os, og vi vil hellere have
-              en god handel, du fortæller videre om, end en hurtig handel, du fortryder.
+              Hos {brand.name} handler det om én ting: tryghed – uanset om du skal købe, sælge eller have bilen
+              til service. Vi er både bilforhandler og værksted under samme tag, med gennemgåede og klargjorte
+              biler, gennemsigtige priser og et erfarent værksted, der holder din bil kørende i mange år. Du
+              får altid et ærligt svar, også når det ikke er det, du havde håbet på. Mere end 100 kunder har
+              allerede handlet trygt hos os, og vi vil hellere have en god oplevelse, du fortæller videre om,
+              end en hurtig handel, du fortryder.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link to="/om-os" className="rounded-md border border-white/30 px-5 py-2.5 font-medium hover:bg-white/10">
@@ -178,41 +180,29 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="space-y-4">
-            <img
-              src={media.showroom.src}
-              width={media.showroom.width}
-              height={media.showroom.height}
-              alt={media.showroom.alt}
-              loading="lazy"
-              decoding="async"
-              className="aspect-[3/2] w-full rounded-2xl object-cover ring-1 ring-white/10"
-            />
-            <p className="-mt-2 text-xs text-white/40">Illustrativt foto</p>
-            <div className="rounded-xl bg-white/5 p-6 ring-1 ring-white/10">
-              <h3 className="flex items-center gap-2 font-display text-lg font-bold">
-                <MapPin className="h-5 w-5 text-brand-accent" aria-hidden /> Find os
-              </h3>
-              <p className="mt-2 text-white/75">{brand.contact.address}</p>
-              <ul className="mt-4 space-y-1 text-sm text-white/75">
-                {brand.openingHours.map((row) => (
-                  <li key={row.label} className="flex justify-between gap-6">
-                    <span>{row.label}</span>
-                    <span>{row.hours}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 overflow-hidden rounded-lg ring-1 ring-white/10">
-                <iframe
-                  title={`Kort over ${brand.name}`}
-                  src={`https://www.google.com/maps?q=${encodeURIComponent(brand.contact.address)}&output=embed`}
-                  width="100%"
-                  height="220"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
+          <div className="rounded-xl bg-white/5 p-6 ring-1 ring-white/10">
+            <h3 className="flex items-center gap-2 font-display text-lg font-bold">
+              <MapPin className="h-5 w-5 text-brand-accent" aria-hidden /> Find os
+            </h3>
+            <p className="mt-2 text-white/75">{brand.contact.address}</p>
+            <ul className="mt-4 space-y-1 text-sm text-white/75">
+              {brand.openingHours.map((row) => (
+                <li key={row.label} className="flex justify-between gap-6">
+                  <span>{row.label}</span>
+                  <span>{row.hours}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 overflow-hidden rounded-lg ring-1 ring-white/10">
+              <iframe
+                title={`Kort over ${brand.name}`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(brand.contact.address)}&output=embed`}
+                width="100%"
+                height="220"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
         </div>

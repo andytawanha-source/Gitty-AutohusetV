@@ -34,6 +34,23 @@ export interface BrandMedia {
   financeConsultation: EditorialImage;
   showroom: EditorialImage;
   workshop: EditorialImage;
+  /** Billeder til de enkelte ydelseskort på værkstedssiden. */
+  workshopServices: {
+    serviceeftersyn: EditorialImage;
+    olieskift: EditorialImage;
+    daekskift: EditorialImage;
+    bremser: EditorialImage;
+    klargoeringTilSyn: EditorialImage;
+    reparation: EditorialImage;
+  };
+  /**
+   * Baggrundsbilleder til den 50/50-delte forside-hero (kun Autohuset V indtil videre).
+   * Valgfrit, da Autohuset Vest fortsat bruger den oprindelige énstrenget hero.
+   */
+  heroSplit?: {
+    buy: EditorialImage;
+    workshop: EditorialImage;
+  };
 }
 
 const autohusetVestMedia: BrandMedia = {
@@ -64,6 +81,44 @@ const autohusetVestMedia: BrandMedia = {
     height: 1400,
     alt: "Klargøring af en bil i et lyst værkstedsmiljø",
   },
+  workshopServices: {
+    serviceeftersyn: {
+      src: "/media/autohuset-vest/workshop-services/serviceeftersyn.webp",
+      width: 1000,
+      height: 750,
+      alt: "Mekaniker bruger momentnøgle i en åben motorhjelm",
+    },
+    olieskift: {
+      src: "/media/autohuset-vest/workshop-services/olieskift.webp",
+      width: 1000,
+      height: 750,
+      alt: "Olie hældes i en bilmotor under et olieskift",
+    },
+    daekskift: {
+      src: "/media/autohuset-vest/workshop-services/daekskift.webp",
+      width: 1000,
+      height: 750,
+      alt: "Mekaniker monterer et dæk på en afbalanceringsmaskine",
+    },
+    bremser: {
+      src: "/media/autohuset-vest/workshop-services/bremser.webp",
+      width: 1000,
+      height: 750,
+      alt: "Mekaniker efterser en bremseskive og -kaliber",
+    },
+    klargoeringTilSyn: {
+      src: "/media/autohuset-vest/workshop-services/klargoering-syn.webp",
+      width: 1000,
+      height: 750,
+      alt: "Mekaniker efterser undervognen på en bil på en lift",
+    },
+    reparation: {
+      src: "/media/autohuset-vest/workshop-services/reparation.webp",
+      width: 1000,
+      height: 750,
+      alt: "Mekaniker bruger en diagnosetablet ved en åben motorhjelm",
+    },
+  },
 };
 
 /**
@@ -73,6 +128,20 @@ const autohusetVestMedia: BrandMedia = {
  */
 const autohusetVMedia: BrandMedia = {
   ...autohusetVestMedia,
+  heroSplit: {
+    buy: {
+      src: "/media/autohuset-v/hero-split-dealer.webp",
+      width: 1672,
+      height: 941,
+      alt: "Autohuset V's bilplads med klargjorte biler foran forhandlerbygningen om aftenen",
+    },
+    workshop: {
+      src: "/media/autohuset-v/hero-split-workshop.webp",
+      width: 1672,
+      height: 941,
+      alt: "Mekaniker efterser motoren på en bil i Autohuset V's værksted",
+    },
+  },
 };
 
 const BRAND_MEDIA: Record<BrandKey, BrandMedia> = {
