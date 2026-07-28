@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { to: "/biler", label: "Biler til salg" },
   { to: "/saelg-din-bil", label: "Sælg din bil" },
   { to: "/garanti", label: "Garanti" },
+  { to: "/vaerksted", label: "Værksted og Service" },
   { to: "/biludlejning", label: "Biludlejning" },
   { to: "/om-os", label: "Om os" },
   { to: "/kontakt", label: "Kontakt" },

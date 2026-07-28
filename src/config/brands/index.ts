@@ -20,7 +20,7 @@ function isBrandKey(value: string | undefined): value is BrandKey {
  * Brand bestemmes i prioriteret rækkefølge:
  * 1. VITE_BRAND_KEY (deployment-environmentvariabel – anbefalet)
  * 2. Domænematch
- * 3. Fallback: autohuset-vest (primært demo-brand)
+ * 3. Fallback: autohuset-v (primært demo-brand)
  */
 export function resolveBrandKey(hostname?: string): BrandKey {
   const envKey = import.meta.env.VITE_BRAND_KEY as string | undefined;
@@ -30,7 +30,7 @@ export function resolveBrandKey(hostname?: string): BrandKey {
   const domainKey = DOMAIN_MAP[host.replace(/^www\./, "")];
   if (domainKey) return domainKey;
 
-  return "autohuset-vest";
+  return "autohuset-v";
 }
 
 export function getBrand(hostname?: string): BrandConfig {

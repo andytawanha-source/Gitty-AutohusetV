@@ -46,4 +46,11 @@ export interface BrandConfig {
   leadResponseTime: string;
   /** Præfiks til leadreferencer, fx "AVEST" */
   leadReferencePrefix: string;
+  /**
+   * Læs bil-/lejebillager fra DETTE brands organisation i stedet for sit eget.
+   * Gør det muligt for flere brands at dele ét scrapet lager (biler scrapes kun
+   * én gang), mens hvert brand fortsat har sine EGNE leads, forespørgsler og
+   * værkstedsbookinger i sin egen organisation. Udeladt = brug egen organisation.
+   */
+  inventoryBrandKey?: BrandKey;
 }

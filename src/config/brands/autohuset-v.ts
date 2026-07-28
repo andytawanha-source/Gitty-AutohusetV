@@ -46,4 +46,7 @@ export const autohusetV: BrandConfig = {
   },
   leadResponseTime: "inden for 24 timer på hverdage",
   leadReferencePrefix: "AV",
+  // Deler det scrapede lager (Bilbasen-salgsbiler + One2move-lejebiler) med Autohuset Vest.
+  // Leads, forespørgsler og værkstedsbookinger forbliver i Autohuset V's egen organisation.
+  inventoryBrandKey: "autohuset-vest",
 };

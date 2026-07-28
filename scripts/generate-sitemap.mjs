@@ -25,9 +25,13 @@ async function fetchVehicleSlugs() {
   const anonKey = process.env.SUPABASE_ANON_KEY ?? process.env.VITE_SUPABASE_ANON_KEY;
   const brandKey = process.env.BRAND_KEY ?? process.env.VITE_BRAND_KEY;
   if (!supabaseUrl || !anonKey || !brandKey) return [];
+  // Delt lager: skal spejle `inventoryBrandKey` i src/config/brands/*.ts, da denne
+  // build-scriptfil ikke kan importere TypeScript-brandkonfigurationen.
+  const INVENTORY_BRAND_KEY = { "autohuset-v": "autohuset-vest" };
+  const inventoryBrandKey = INVENTORY_BRAND_KEY[brandKey] ?? brandKey;
   try {
     const brandRes = await fetch(
-      `${supabaseUrl}/rest/v1/brands?brand_key=eq.${brandKey}&select=organization_id`,
+      `${supabaseUrl}/rest/v1/brands?brand_key=eq.${inventoryBrandKey}&select=organization_id`,
       { headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` } }
     );
     const [brand] = await brandRes.json();

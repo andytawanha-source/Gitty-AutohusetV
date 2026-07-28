@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSupabase, isSupabaseConfigured } from "@/lib/supabase";
-import { resolveBrandKey } from "@/config/brands";
+import { brands, resolveBrandKey, type BrandKey } from "@/config/brands";
 import { getDemoVehicles } from "./demoData";
 import { applyFilters, sortVehicles, type SortKey, type VehicleFilters } from "./filters";
 import type { RentalDetails, Vehicle, VehicleImage } from "./types";
@@ -8,7 +8,8 @@ import type { RentalDetails, Vehicle, VehicleImage } from "./types";
 /**
  * Dataadgang for biler. To tilstande:
  *  - Demo-mode (Supabase ikke konfigureret): lokale, tydeligt fiktive demodata.
- *  - Supabase: hele det offentlige lager for brandets organisation hentes og caches
+ *  - Supabase: hele det offentlige lager for lager-organisationen (brandets egen,
+ *    eller `inventoryBrandKey`s organisation ved delt lager) hentes og caches
  *    via TanStack Query; filtrering/sortering sker klient-side (lagre < ~500 biler).
  *    RLS sikrer, at kun published/reserved/sold rækker kan læses anonymt.
  */
@@ -71,20 +72,44 @@ function publicImageUrl(storagePath: string): string {
   return getSupabase().storage.from("vehicle-images").getPublicUrl(storagePath).data.publicUrl;
 }
 
-async function fetchOrganizationId(): Promise<string> {
+/**
+ * Organisationen der ejer LAGERET (biler + lejebiler) for det aktuelle brand.
+ * Er `inventoryBrandKey` sat i brandkonfigurationen, læses lageret fra det brands
+ * organisation i stedet – så flere brands kan vise samme scrapede lager, mens
+ * leads/forespørgsler/bookinger fortsat gemmes på brandets EGEN organisation.
+ * MÅ KUN bruges til læsning af biler/lejebiler.
+ */
+function resolveInventoryBrandKey(): BrandKey {
   const brandKey = resolveBrandKey();
-  const { data, error } = await getSupabase()
-    .from("brands")
-    .select("organization_id")
-    .eq("brand_key", brandKey)
-    .single();
-  if (error) throw error;
-  return data.organization_id;
+  return brands[brandKey].inventoryBrandKey ?? brandKey;
+}
+
+/** Cache pr. brand_key – organisation-id'et ændrer sig ikke i en session. */
+const organizationIdCache = new Map<BrandKey, Promise<string>>();
+
+async function resolveInventoryOrganizationId(): Promise<string> {
+  const brandKey = resolveInventoryBrandKey();
+  const cached = organizationIdCache.get(brandKey);
+  if (cached) return cached;
+
+  const pending = (async () => {
+    const { data, error } = await getSupabase()
+      .from("brands")
+      .select("organization_id")
+      .eq("brand_key", brandKey)
+      .single();
+    if (error) throw error;
+    return data.organization_id as string;
+  })();
+
+  organizationIdCache.set(brandKey, pending);
+  pending.catch(() => organizationIdCache.delete(brandKey));
+  return pending;
 }
 
 async function fetchAllPublicVehicles(): Promise<Vehicle[]> {
   if (!isSupabaseConfigured) return getDemoVehicles();
-  const orgId = await fetchOrganizationId();
+  const orgId = await resolveInventoryOrganizationId();
   // Eksplicit kolonneliste: anonyme har IKKE adgang til vin/internal_notes,
   // og "*" ville derfor få hele forespørgslen afvist af Postgres' kolonnerettigheder.
   const PUBLIC_COLUMNS =
@@ -138,7 +163,7 @@ function mapRentalDetails(row: any): RentalDetails {
  */
 async function fetchAllPublicRentalVehicles(): Promise<RentalVehicle[]> {
   if (!isSupabaseConfigured) return [];
-  const orgId = await fetchOrganizationId();
+  const orgId = await resolveInventoryOrganizationId();
   const PUBLIC_COLUMNS =
     "id, organization_id, make, model, variant, model_year, first_registration, mileage_km, " +
     "price_dkk, monthly_price_dkk, fuel_type, transmission, body_type, color, doors, seats, " +
