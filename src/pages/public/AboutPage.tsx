@@ -2,11 +2,9 @@ import { Link } from "react-router-dom";
 import { MapPin } from "lucide-react";
 import { Seo } from "@/components/seo/Seo";
 import { useBrand } from "@/app/BrandProvider";
-import { getBrandMedia } from "@/config/brandMedia";
 
 export default function AboutPage() {
   const brand = useBrand();
-  const media = getBrandMedia(brand.key);
   return (
     <div className="container py-10 lg:py-14">
       <Seo title="Om os" description={`Lær ${brand.name} at kende – historie, værdier og team.`} />
@@ -32,32 +30,6 @@ export default function AboutPage() {
           </p>
         </div>
       </div>
-
-      <figure className="mt-8">
-        <img
-          src={media.showroom.src}
-          width={media.showroom.width}
-          height={media.showroom.height}
-          alt={media.showroom.alt}
-          loading="lazy"
-          decoding="async"
-          className="aspect-[3/2] w-full rounded-2xl object-cover shadow-sm ring-1 ring-brand-ink/5"
-        />
-        <figcaption className="mt-2 text-xs text-brand-ink/40">Illustrativt foto</figcaption>
-      </figure>
-
-      <figure className="mx-auto mt-8 max-w-3xl">
-        <img
-          src={media.workshop.src}
-          width={media.workshop.width}
-          height={media.workshop.height}
-          alt={media.workshop.alt}
-          loading="lazy"
-          decoding="async"
-          className="aspect-square w-full max-w-sm rounded-2xl object-cover shadow-sm ring-1 ring-brand-ink/5 sm:mx-0"
-        />
-        <figcaption className="mt-2 text-xs text-brand-ink/40">Illustrativt foto af klargøring</figcaption>
-      </figure>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
         <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-brand-ink/5">
