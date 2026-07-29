@@ -1113,7 +1113,7 @@ export function downloadCsv(filename: string, csv: string): void {
 
 /** Simpel CSV-import (semikolonsepareret, samme kolonner som eksporten). */
 export function parseVehicleCsv(text: string): Array<Partial<VehicleFormValues>> {
-  const lines = text.replace(/^﻿/, "").split(/\r?\n/).filter((l) => l.trim());
+  const lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter((l) => l.trim());
   if (lines.length < 2) return [];
   const headers = lines[0].split(";").map((h) => h.replace(/^"|"$/g, "").trim());
   return lines.slice(1).map((line) => {
