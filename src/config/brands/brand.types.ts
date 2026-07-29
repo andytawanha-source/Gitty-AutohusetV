@@ -46,6 +46,8 @@ export interface BrandConfig {
   leadResponseTime: string;
   /** Præfiks til leadreferencer, fx "AVEST" */
   leadReferencePrefix: string;
+  /** Booking-URL til bilpleje/bilvask (Planway el. lign.). Udeladt = ingen "Bilpleje"-link i header. */
+  bilplejeUrl?: string;
   /**
    * Læs bil-/lejebillager fra DETTE brands organisation i stedet for sit eget.
    * Gør det muligt for flere brands at dele ét scrapet lager (biler scrapes kun

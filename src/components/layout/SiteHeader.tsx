@@ -1,25 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, Phone, X } from "lucide-react";
+import { ExternalLink, Menu, Phone, X } from "lucide-react";
 import { useBrand } from "@/app/BrandProvider";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 
-const NAV_ITEMS = [
-  { to: "/", label: "Forside", end: true },
-  { to: "/biler", label: "Biler til salg" },
-  { to: "/saelg-din-bil", label: "Sælg din bil" },
-  { to: "/garanti", label: "Garanti" },
-  { to: "/vaerksted", label: "Værksted og Service" },
-  { to: "/biludlejning", label: "Biludlejning" },
-  { to: "/om-os", label: "Om os" },
-  { to: "/kontakt", label: "Kontakt" },
+type NavItem =
+  | { kind: "internal"; to: string; label: string; end?: boolean }
+  | { kind: "external"; href: string; label: string };
+
+const BASE_NAV_ITEMS: NavItem[] = [
+  { kind: "internal", to: "/", label: "Forside", end: true },
+  { kind: "internal", to: "/biler", label: "Biler til salg" },
+  { kind: "internal", to: "/saelg-din-bil", label: "Sælg din bil" },
+  { kind: "internal", to: "/garanti", label: "Garanti" },
+  { kind: "internal", to: "/vaerksted", label: "Værksted og Service" },
+  { kind: "internal", to: "/biludlejning", label: "Biludlejning" },
+  { kind: "internal", to: "/om-os", label: "Om os" },
+  { kind: "internal", to: "/kontakt", label: "Kontakt" },
 ];
 
 export function SiteHeader() {
   const brand = useBrand();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // Bilpleje-booking (Planway) er kun relevant for brands, der har en bilplejeUrl
+  // sat i deres brandkonfiguration – linket indsættes efter "Værksted og Service".
+  const navItems = useMemo<NavItem[]>(() => {
+    if (!brand.bilplejeUrl) return BASE_NAV_ITEMS;
+    const items = [...BASE_NAV_ITEMS];
+    const workshopIndex = items.findIndex((item) => item.kind === "internal" && item.to === "/vaerksted");
+    const bilplejeItem: NavItem = { kind: "external", href: brand.bilplejeUrl, label: "Bilpleje" };
+    items.splice(workshopIndex + 1, 0, bilplejeItem);
+    return items;
+  }, [brand.bilplejeUrl]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -49,21 +64,35 @@ export function SiteHeader() {
         </Link>
 
         <nav aria-label="Hovednavigation" className="hidden min-w-0 items-center gap-0.5 xl:flex">
-          {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              className={({ isActive }) =>
-                cn(
-                  "whitespace-nowrap rounded-md px-2.5 py-2 text-[0.8125rem] font-medium leading-none transition-colors hover:bg-white/10",
-                  isActive && "bg-white/15 text-brand-accent"
-                )
-              }
-            >
-              {item.label}
-            </NavLink>
-          ))}
+          {navItems.map((item) =>
+            item.kind === "internal" ? (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) =>
+                  cn(
+                    "whitespace-nowrap rounded-md px-2.5 py-2 text-[0.8125rem] font-medium leading-none transition-colors hover:bg-white/10",
+                    isActive && "bg-white/15 text-brand-accent"
+                  )
+                }
+              >
+                {item.label}
+              </NavLink>
+            ) : (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="click_bilpleje"
+                className="inline-flex items-center gap-1 whitespace-nowrap rounded-md px-2.5 py-2 text-[0.8125rem] font-medium leading-none transition-colors hover:bg-white/10"
+              >
+                {item.label}
+                <ExternalLink className="h-3 w-3 shrink-0 opacity-70" aria-hidden />
+              </a>
+            )
+          )}
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
@@ -97,23 +126,39 @@ export function SiteHeader() {
       {mobileOpen && (
         <nav id="mobile-menu" aria-label="Mobilnavigation" className="border-t border-white/10 bg-brand-gradient xl:hidden">
           <ul className="container flex flex-col py-2">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  end={item.end}
-                  onClick={() => setMobileOpen(false)}
-                  className={({ isActive }) =>
-                    cn(
-                      "block rounded-md px-3 py-3 text-base font-medium hover:bg-white/10",
-                      isActive && "text-brand-accent"
-                    )
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              </li>
-            ))}
+            {navItems.map((item) =>
+              item.kind === "internal" ? (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    end={item.end}
+                    onClick={() => setMobileOpen(false)}
+                    className={({ isActive }) =>
+                      cn(
+                        "block rounded-md px-3 py-3 text-base font-medium hover:bg-white/10",
+                        isActive && "text-brand-accent"
+                      )
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                </li>
+              ) : (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-track="click_bilpleje"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-1.5 rounded-md px-3 py-3 text-base font-medium hover:bg-white/10"
+                  >
+                    {item.label}
+                    <ExternalLink className="h-3.5 w-3.5 shrink-0 opacity-70" aria-hidden />
+                  </a>
+                </li>
+              )
+            )}
             <li className="mt-2 border-t border-white/10 pt-3">
               <a href={`tel:${brand.contact.phone}`} className="flex items-center gap-2 px-3 py-2" data-track="click_phone">
                 <Phone className="h-4 w-4" aria-hidden /> {brand.contact.phone}

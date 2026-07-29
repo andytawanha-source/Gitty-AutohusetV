@@ -46,4 +46,5 @@ export const autohusetVest: BrandConfig = {
   },
   leadResponseTime: "inden for 24 timer på hverdage",
   leadReferencePrefix: "AVEST",
+  bilplejeUrl: "https://autohusetvest-bilpleje.planway.com?d=68403&sid=491895",
 };
