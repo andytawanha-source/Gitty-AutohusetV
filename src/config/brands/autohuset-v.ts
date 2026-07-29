@@ -50,4 +50,6 @@ export const autohusetV: BrandConfig = {
   // Deler det scrapede lager (Bilbasen-salgsbiler + One2move-lejebiler) med Autohuset Vest.
   // Leads, forespørgsler og værkstedsbookinger forbliver i Autohuset V's egen organisation.
   inventoryBrandKey: "autohuset-vest",
+  // Samme fysiske bilpleje-anlæg og Planway-booking som Autohuset Vest (fælles lokation).
+  bilplejeUrl: "https://autohusetvest-bilpleje.planway.com?d=68403&sid=491895",
 };
