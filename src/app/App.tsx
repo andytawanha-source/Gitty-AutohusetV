@@ -18,6 +18,7 @@ const SellCarPage = lazy(() => import("@/pages/public/SellCarPage"));
 const SellCarThanksPage = lazy(() => import("@/pages/public/SellCarThanksPage"));
 const GarantiPage = lazy(() => import("@/pages/public/GarantiPage"));
 const WorkshopPage = lazy(() => import("@/pages/public/WorkshopPage"));
+const BilplejePage = lazy(() => import("@/pages/public/BilplejePage"));
 const RentalPage = lazy(() => import("@/pages/public/RentalPage"));
 const RentalCarDetailPage = lazy(() => import("@/pages/public/RentalCarDetailPage"));
 const AboutPage = lazy(() => import("@/pages/public/AboutPage"));
@@ -71,6 +72,7 @@ export function App() {
                     <Route path="/kontakt" element={<ContactPage />} />
                     <Route path="/favoritter" element={<FavoritesPage />} />
                     <Route path="/vaerksted" element={<WorkshopPage />} />
+                    <Route path="/bilpleje" element={<BilplejePage />} />
                     <Route path="/cookieindstillinger" element={<CookieSettingsPage />} />
                     <Route path="/:legalSlug" element={<LegalPage />} />
                     <Route path="*" element={<NotFoundPage />} />

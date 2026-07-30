@@ -25,13 +25,14 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Bilpleje-booking (Planway) er kun relevant for brands, der har en bilplejeUrl
-  // sat i deres brandkonfiguration – linket indsættes efter "Værksted og Service".
+  // "Bilpleje" i menuen peger på vores egen side (/bilpleje), der forklarer pakkerne –
+  // selve booking-linket til Planway ligger som CTA'er inde på den side. Punktet vises
+  // kun for brands, der reelt har en bilplejeUrl sat i deres brandkonfiguration.
   const navItems = useMemo<NavItem[]>(() => {
     if (!brand.bilplejeUrl) return BASE_NAV_ITEMS;
     const items = [...BASE_NAV_ITEMS];
     const workshopIndex = items.findIndex((item) => item.kind === "internal" && item.to === "/vaerksted");
-    const bilplejeItem: NavItem = { kind: "external", href: brand.bilplejeUrl, label: "Bilpleje" };
+    const bilplejeItem: NavItem = { kind: "internal", to: "/bilpleje", label: "Bilpleje" };
     items.splice(workshopIndex + 1, 0, bilplejeItem);
     return items;
   }, [brand.bilplejeUrl]);
